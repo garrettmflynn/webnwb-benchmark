@@ -10,11 +10,26 @@
 </body>
 <script type="module">
     import * as benchmarks from './benchmarks.js';
+
+    const average = (arr) => arr.reduce((acc, time) => acc + time, 0) / arr.length
+
     globalThis.runBenchmark = async (name) => {
-        const start = performance.now()
-        await benchmarks[name]()
-        const end = performance.now()
-        return end - start
+        const cls = benchmarks[name]
+        const instance = new cls()
+
+        const results = []
+        // for (let _ in Array.from({ length: instance.rounds })) {
+            for (let _ in Array.from({ length: instance.repeat })) {
+                const params = instance.params
+                await instance.setup()
+                const start = performance.now()
+                await instance.run()
+                const end = performance.now()
+                results.push(end - start)
+            }
+        // }
+
+        return average(results)
     };
 </script>
 </html>
