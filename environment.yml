@@ -1,0 +1,8 @@
+name: webnwb-benchmarks
+channels:
+  - defaults
+dependencies:
+  - python=3.11
+  - pip:
+      - pyppeteer==2.0.0
+prefix: /Users/garrettflynn/miniconda3/envs/webnwb-benchmarks
