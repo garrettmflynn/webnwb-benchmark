@@ -9,7 +9,7 @@
         "test": "npm run build && python main.py"
     },
     "dependencies": {
-        "@fi-sci/remote-h5-file": "^0.1.4",
+        "@fi-sci/remote-h5-file": "^0.1.7",
         "vite": "^5.2.9",
         "vitest": "^1.5.0"
     }

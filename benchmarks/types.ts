@@ -1,7 +1,11 @@
+type BenchmarkParams = {
+    [key: string]: any
+}
+
 type Benchmark = {
     rounds: number
     repeat: number
-    params: any
-    setup: (params) => void
-    run: (params: any) => void
+    params: BenchmarkParams
+    setup: (params: BenchmarkParams) => void
+    run: (params: BenchmarkParams) => void
 }

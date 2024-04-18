@@ -15,7 +15,7 @@ export const runBenchmark = async (name) => {
             const start = performance.now()
             await instance.run(params)
             const end = performance.now()
-            console.log(name, end - start, end, start)
+            console.log(name, end - start)
             results.push(end - start)
         }
     // }

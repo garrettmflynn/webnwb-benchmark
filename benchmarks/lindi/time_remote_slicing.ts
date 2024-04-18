@@ -1,4 +1,4 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
+import { Benchmark } from '../types'
 import { RemoteH5FileLindi, getRemoteH5FileLindi } from '@fi-sci/remote-h5-file'
 
 type FileSliceParams = {
@@ -13,21 +13,25 @@ const fileSliceParams: FileSliceParams = {
     slice: [[0, 20]]
 }
 
-export class RemoteLindiFileSliceBenchmark {
-    #remoteFile: RemoteH5FileLindi | undefined
+export class RemoteLindiFileSliceBenchmark implements Benchmark {
 
+    rounds = 1
+    repeat = 3
+
+    #remoteFile: RemoteH5FileLindi
     params: FileSliceParams = fileSliceParams
 
-    async setup({ lindi_url, object_name, slice }: FileSliceParams ) {
+    setup = async ({ lindi_url, object_name }: FileSliceParams ) => {
         this.#remoteFile = await getRemoteH5FileLindi(lindi_url)
+        this.#remoteFile._disableCache() // Clear the cache
+        const ds = await this.#remoteFile.getDataset(object_name)
+        
+        if (ds) {
+            if ( ds.attrs["_EXTERNAL_ARRAY_LINK"] ) console.warn('Has fallen back to HDF5 reader.')
+        } 
+    
+        else throw new Error('Dataset not found.')
     }
 
-    async run({ lindi_url, object_name, slice }: FileSliceParams ) {
-
-        if (this.#remoteFile === undefined) throw new Error("remote file not initialized")
-
-        const data = await this.#remoteFile.getDatasetData(object_name, {slice})
-
-        return data
-    }
+    run = async ({ object_name, slice }: FileSliceParams ) => await this.#remoteFile.getDatasetData(object_name, { slice })
 }
