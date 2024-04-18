@@ -2,6 +2,7 @@ import * as benchmarks from './benchmarks'
 
 const average = (arr) => arr.reduce((acc, time) => acc + time, 0) / arr.length
 
+// Run a single benchmark
 export const runBenchmark = async (name) => {
     const cls = benchmarks[name]
     const instance = new cls()
@@ -24,6 +25,7 @@ export const runBenchmark = async (name) => {
 };
 
   
+// Run all benchmarks
 export const runAllBenchmarks = async () => {
     const results = {}
     for (const name in benchmarks) results[name] = await runBenchmark(name)

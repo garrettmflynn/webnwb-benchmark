@@ -9,15 +9,15 @@ TESTS = [
 
 async def run_benchmarks(tests):
     try:
-        await benchmark_manager.start()
-        await benchmark_manager.open()
-        tests = await benchmark_manager.page.evaluate(f'Object.keys(globalThis.benchmarks)')
-        await benchmark_manager.run_all(tests)
+        await benchmark_manager.start() # Start the server
+        await benchmark_manager.open() # Open the browser
+        tests = await benchmark_manager.page.evaluate(f'Object.keys(globalThis.benchmarks)') # Get the list of available tests
+        await benchmark_manager.run_all(tests) # Run all the tests
 
     except KeyboardInterrupt:
         pass
     finally:
-        await benchmark_manager.close()
+        await benchmark_manager.close() # Close the browser and the server
 
     return benchmark_manager.results
 
