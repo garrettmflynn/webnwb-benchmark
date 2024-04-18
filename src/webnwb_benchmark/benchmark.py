@@ -33,7 +33,8 @@ def get_server(base_path: Path, port: int):
 
 class WebNWBBenchmarks:
     
-    def __init__(self):
+    def __init__(self, html_path: Path):
+        self.html_path = html_path
         self.httpd = None
         self.server_thread = None
         self.browser = None
@@ -41,7 +42,7 @@ class WebNWBBenchmarks:
         self.results = {}
 
     async def start(self):
-        self.httpd = get_server(Path(__file__).parent / 'benchmark.html', PORT)
+        self.httpd = get_server(self.html_path, PORT)
 
         def start_server():
             try:
@@ -64,15 +65,8 @@ class WebNWBBenchmarks:
             await self.run(test)
 
     async def run(self, test):
-        start = time.time()
         browser_ms = await self.page.evaluate(f'globalThis.runBenchmark("{test}")')
-        end = time.time()
-        python_ms = (end - start) * 1000
-
-        self.results[test] = {
-            "browser": browser_ms,
-            "python": python_ms
-        }
+        self.results[test] = browser_ms
 
     async def close(self):
         if self.browser:

@@ -1,0 +1,16 @@
+{
+    "name": "web-nwb-benchmarks",
+    "version": "0.0.1",
+    "scripts": {
+        "start": "vite",
+        "dev": "vite",
+        "build": "vite build",
+        "serve": "vite preview",
+        "test": "npm run build && python main.py"
+    },
+    "dependencies": {
+        "@fi-sci/remote-h5-file": "^0.1.4",
+        "vite": "^5.2.9",
+        "vitest": "^1.5.0"
+    }
+}

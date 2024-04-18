@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web NWB Benchmarks</title>
+</head>
+<body>
+    <h1>Benchmark</h1>
+</body>
+<script type="module">
+
+    import * as benchmarks from './benchmarks';
+    import { runBenchmark, runAllBenchmarks } from './index';
+
+    // Set Global Variables
+    globalThis.runBenchmark = runBenchmark
+    globalThis.runAllBenchmarks = runAllBenchmarks
+    globalThis.benchmarks = benchmarks
+  
+    // Create Buttons
+    for (const name in benchmarks) {
+        const button = document.createElement('button')
+        button.textContent = name
+        button.onclick = async () => {
+            const result = await runBenchmark(name)
+            alert(`${name}: ${result}ms`)
+        }
+        document.body.appendChild(button)
+    }
+
+</script>
+</html>
