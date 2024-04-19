@@ -1,1 +1,1 @@
-export * from './time_remote_slicing'
+export * as timeRemoteSlicing from './time_remote_slicing'
