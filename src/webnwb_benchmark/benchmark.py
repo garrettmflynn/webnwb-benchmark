@@ -69,12 +69,12 @@ class WebNWBBenchmarks:
         for test in tests:
             await self.run(test)
 
-    async def run(self, test):
+    async def run(self, test_name : str):
         """Trigger a benchmark test via the Puppeteer instance and receive the results back."""
         if not self.page:
             await self.open() # Open the browser if it's not already open
 
-        browser_ms = await self.page.evaluate(f'globalThis.runBenchmark("{test}")')
+        browser_ms = await self.page.evaluate(f'globalThis.runBenchmark("{test_name}")')
         self.results[test] = browser_ms
 
     async def close(self):
