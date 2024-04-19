@@ -14,7 +14,7 @@ type FileSliceParams = {
 }
 
 const fileSliceParams: FileSliceParams = {
-    h5_url: `https://api.dandiarchive.org/api/assets/37ca1798-b14c-4224-b8f0-037e27725336/download/?cb=${cacheBust()}`, // Clear the cache
+    h5_url: `https://api.dandiarchive.org/api/assets/37ca1798-b14c-4224-b8f0-037e27725336/download/`,
     object_name: '/acquisition/ElectricalSeriesAp/data',
     slice: [[0, 20]]
 }
@@ -28,7 +28,7 @@ export class RemoteH5FileSliceBenchmark implements Benchmark {
     params: FileSliceParams = fileSliceParams
 
     setup = async ({ h5_url, object_name }: FileSliceParams ) => {
-        this.#remoteFile = await getRemoteH5File(h5_url)
+        this.#remoteFile = await getRemoteH5File(h5_url + `?cb=${cacheBust()}`) // Clear the cache
         const ds = await this.#remoteFile.getDataset(object_name)
         if (!ds) throw new Error('Dataset not found.')
     }
