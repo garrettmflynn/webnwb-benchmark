@@ -8,7 +8,7 @@ type FileSliceParams = {
 }
 
 const fileSliceParams: FileSliceParams = {
-    lindi_url: 'https://lindi.neurosift.org/dandi/dandisets/000409/assets/37ca1798-b14c-4224-b8f0-037e27725336/zarr.json',
+    lindi_url: 'https://lindi.neurosift.org/dandi/dandisets/000717/assets/3d12a902-139a-4c1a-8fd0-0a7faf2fb223/zarr.json',
     object_name: '/acquisition/ElectricalSeriesAp/data',
     slice: [[0, 20]]
 }

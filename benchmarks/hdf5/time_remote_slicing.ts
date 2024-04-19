@@ -14,7 +14,7 @@ type FileSliceParams = {
 }
 
 const fileSliceParams: FileSliceParams = {
-    h5_url: `https://api.dandiarchive.org/api/assets/37ca1798-b14c-4224-b8f0-037e27725336/download/`,
+    h5_url: `https://api.dandiarchive.org/api/assets/3d12a902-139a-4c1a-8fd0-0a7faf2fb223/download/`,
     object_name: '/acquisition/ElectricalSeriesAp/data',
     slice: [[0, 20]]
 }
