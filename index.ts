@@ -1,7 +1,5 @@
 import * as benchmarks from './benchmarks'
 
-const average = (arr) => arr.reduce((acc, time) => acc + time, 0) / arr.length
-
 export const runBenchmark = async (name) => {
     const cls = benchmarks[name]
     const instance = new cls()
@@ -9,6 +7,7 @@ export const runBenchmark = async (name) => {
     const results: number[] = []
 
     // for (let _ in Array.from({ length: instance.rounds })) {
+    
         for (let _ in Array.from({ length: instance.repeat ?? 1 })) {
             const params = instance.params
             await instance.setup(params)
@@ -20,7 +19,7 @@ export const runBenchmark = async (name) => {
         }
     // }
 
-    return average(results)
+    return results.map( (time) => time / 1000 ) // Convert to seconds
 };
 
   

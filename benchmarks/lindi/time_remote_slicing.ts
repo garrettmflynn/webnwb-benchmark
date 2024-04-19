@@ -1,5 +1,6 @@
 import { Benchmark } from '../types'
-import { RemoteH5FileLindi, getRemoteH5FileLindi } from '@fi-sci/remote-h5-file'
+import { RemoteH5FileLindi } from '@fi-sci/remote-h5-file'
+import { cacheBust } from '../utils'
 
 type FileSliceParams = {
     lindi_url: string
@@ -22,7 +23,7 @@ export class RemoteLindiFileSliceBenchmark implements Benchmark {
     params: FileSliceParams = fileSliceParams
 
     setup = async ({ lindi_url, object_name }: FileSliceParams ) => {
-        this.#remoteFile = await getRemoteH5FileLindi(lindi_url)
+        this.#remoteFile = await RemoteH5FileLindi.create(lindi_url + `?cb=${cacheBust()}`) // Clear the cache
         this.#remoteFile._disableCache() // Clear the cache
         const ds = await this.#remoteFile.getDataset(object_name)
         

@@ -3,7 +3,7 @@ from pathlib import Path
 from src.webnwb_benchmark.benchmark import WebNWBBenchmarks
 
 TESTS = [
-    'TestTimeSliceBenchmark'
+    'RemoteH5FileSliceBenchmark'
 ]
 
 
@@ -13,6 +13,9 @@ async def run_benchmarks(tests):
         await benchmark_manager.open()
         tests = await benchmark_manager.page.evaluate(f'Object.keys(globalThis.benchmarks)')
         await benchmark_manager.run_all(tests)
+
+        ## Locally Defined Test Cases
+        # await benchmark_manager.run_all(TESTS)
 
     except KeyboardInterrupt:
         pass
@@ -28,4 +31,9 @@ if __name__ == "__main__":
 
     loop = asyncio.get_event_loop()
     results = loop.run_until_complete(run_benchmarks(TESTS))
-    print("Benchmark finished", results)
+
+    averaged_results = {}
+    for test, results in results.items():
+        averaged_results[test] = sum(results) / len(results)
+
+    print("Averaged Results", averaged_results, end="\n\n")

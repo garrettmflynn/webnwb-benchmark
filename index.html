@@ -13,6 +13,8 @@
     import * as benchmarks from './benchmarks';
     import { runBenchmark, runAllBenchmarks } from './index';
 
+    const average = (arr) => arr.reduce((acc, time) => acc + time, 0) / arr.length
+
     // Set Global Variables
     globalThis.runBenchmark = runBenchmark
     globalThis.runAllBenchmarks = runAllBenchmarks
@@ -24,7 +26,7 @@
         button.textContent = name
         button.onclick = async () => {
             const result = await runBenchmark(name)
-            alert(`${name}: ${result}ms`)
+            alert(`${name}: ${average(result).toFixed(4)} seconds`)
         }
         document.body.appendChild(button)
     }

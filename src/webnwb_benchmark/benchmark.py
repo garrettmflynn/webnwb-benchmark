@@ -26,7 +26,9 @@ def get_server(base_path: Path, port: int):
             if self.path == '/':
                 self.path = str(base_path.relative_to(cwd))
             else:
-                self.path = str((base_path.parent / self.path[1:]).relative_to(cwd))
+                full_path = base_path.parent / self.path[1:]
+                self.path = str(full_path.relative_to(cwd))
+                print(f"GET {self.path}")
             return super().do_GET()
 
     return ThreadedTCPServer(("", port), MyHttpRequestHandler)
@@ -42,6 +44,7 @@ class WebNWBBenchmarks:
         self.results = {}
 
     async def start(self):
+        print(f"Starting server at http://{HOST}:{PORT}")
         self.httpd = get_server(self.html_path, PORT)
 
         def start_server():
@@ -56,6 +59,7 @@ class WebNWBBenchmarks:
         self.server_thread.start()
 
     async def open(self):
+        print(f"Opening Puppeteer browser at http://{HOST}:{PORT}")
         self.browser = await launch({ "headless": True })
         self.page = await self.browser.newPage()
         await self.page.goto(f"http://{HOST}:{PORT}")
@@ -65,10 +69,14 @@ class WebNWBBenchmarks:
             await self.run(test)
 
     async def run(self, test):
-        browser_ms = await self.page.evaluate(f'globalThis.runBenchmark("{test}")')
-        self.results[test] = browser_ms
+        print(f"Running {test}")
+        test_results = await self.page.evaluate(f'globalThis.runBenchmark("{test}")')
+        print(f"\t— {test_results}\n")
+
+        self.results[test] = test_results
 
     async def close(self):
+
         if self.browser:
             await self.browser.close()
 

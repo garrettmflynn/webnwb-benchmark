@@ -2,10 +2,8 @@ import { Benchmark } from '../types'
 import { 
     getRemoteH5File, 
     RemoteH5File, 
-    // cacheBust 
 } from '@fi-sci/remote-h5-file'
-
-const cacheBust = () => Math.random().toString(36).substring(7)
+import { cacheBust } from '../utils'
 
 type FileSliceParams = {
     h5_url: string
