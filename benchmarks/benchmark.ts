@@ -3,7 +3,7 @@ type BenchmarkParams = {
 }
 
 export class Benchmark {
-    
+
     rounds: number
     repeat: number
     params: BenchmarkParams

@@ -27,11 +27,11 @@ export class RemoteLindiFileSliceBenchmark extends Benchmark {
         this.file = await RemoteH5FileLindi.create(lindi_url + `?cb=${cacheBust()}`) // Clear the cache
         this.file._disableCache() // Clear the cache
         const ds = await this.file.getDataset(object_name)
-        
+
         if (ds) {
             if ( ds.attrs["_EXTERNAL_ARRAY_LINK"] ) console.warn('Has fallen back to HDF5 reader.')
-        } 
-    
+        }
+
         else throw new Error('Dataset not found.')
     }
 

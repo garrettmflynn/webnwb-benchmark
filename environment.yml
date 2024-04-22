@@ -5,4 +5,5 @@ dependencies:
   - python=3.11
   - pip:
       - pyppeteer==2.0.0
+      - pre-commit
 prefix: /Users/garrettflynn/miniconda3/envs/webnwb-benchmarks
