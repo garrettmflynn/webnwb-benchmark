@@ -17,12 +17,11 @@ PORT = 3333
 class ThreadedTCPServer(socketserver.ThreadingMixIn, socketserver.TCPServer):
     """Handle requests in a separate thread."""
 
-    daemon_threads = (
-        True  # Ensure that the entire Python program exits when the main process exits
-    )
-    allow_reuse_address = (
-        True  # Allows the server to bind to the port even if it was used recently
-    )
+    # Ensure that the entire Python program exits when the main process exits
+    daemon_threads = True
+    
+    # Allows the server to bind to the port even if it was used recently
+    allow_reuse_address = True
 
 
 def get_server(base_path: Path, port: int):
