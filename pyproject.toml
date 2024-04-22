@@ -1,0 +1,72 @@
+[build-system]
+requires = ["hatchling", "hatch-vcs"]
+build-backend = "hatchling.build"
+
+[tool.hatch.version]
+source = "vcs"
+
+[project]
+name = "webnwb_benchmarks"
+version="0.1.0"
+authors = [
+  { name="Garrett Flynn", email="garrett.flynn@catalystneuro.com" },
+  { name="Cody Baker", email="cody.baker@catalystneuro.com" },
+]
+description = "Benchmark functions executed on the web using Python"
+readme = "README.md"
+requires-python = ">=3.9"
+license = {file = "license.txt"}
+
+keywords = ["benchmarks", "web"]
+
+classifiers = [
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3.8",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "License :: OSI Approved :: BSD License",
+    "Intended Audience :: Developers",
+    "Operating System :: Microsoft :: Windows",
+    "Operating System :: MacOS",
+    "Operating System :: Unix",
+]
+
+dependencies = [
+    "pyppeteer>=2.0.0"
+]
+
+[project.optional-dependencies]
+dev = [
+    "pre-commit"
+]
+
+[project.urls]
+"Homepage" = "https://github.com/garrettmflynn/webnwb_benchmarks"
+"Bug Tracker" = "https://github.com/garrettmflynn/webnwb_benchmarks/issues"
+
+[tool.black]
+line-length = 120
+target-version = ['py39', 'py310', 'py311']
+include = '\.pyi?$'
+extend-exclude = '''
+/(
+  \.toml
+  |\.yml
+  |\.txt
+  |\.sh
+  |\.git
+  |\.ini
+  | \.hg
+  | \.mypy_cache
+  | \.tox
+  | \.venv
+  | build
+  | dist
+)/
+'''
+
+[tool.isort]
+profile = "black"
+reverse_relative = true
+known_first_party = [ "webnwb_benchmarks" ]

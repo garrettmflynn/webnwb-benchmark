@@ -1,6 +1,6 @@
 import asyncio
 from pathlib import Path
-from src.webnwb_benchmark.benchmark import WebNWBBenchmarks
+from src.webnwb_benchmarks import WebNWBBenchmarks
 
 TESTS = ["RemoteH5FileSliceBenchmark"]
 
@@ -9,9 +9,7 @@ async def run_benchmarks(tests):
     try:
         await benchmark_manager.start()
         await benchmark_manager.open()
-        tests = await benchmark_manager.page.evaluate(
-            f"Object.keys(globalThis.benchmarks)"
-        )
+        tests = await benchmark_manager.page.evaluate(f"Object.keys(globalThis.benchmarks)")
         await benchmark_manager.run_all(tests)
 
         ## Locally Defined Test Cases

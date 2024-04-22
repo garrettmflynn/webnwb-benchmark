@@ -8,7 +8,6 @@ import http.server
 import socketserver
 
 import os
-import time
 
 HOST = "localhost"
 PORT = 3333
@@ -19,7 +18,7 @@ class ThreadedTCPServer(socketserver.ThreadingMixIn, socketserver.TCPServer):
 
     # Ensure that the entire Python program exits when the main process exits
     daemon_threads = True
-    
+
     # Allows the server to bind to the port even if it was used recently
     allow_reuse_address = True
 
