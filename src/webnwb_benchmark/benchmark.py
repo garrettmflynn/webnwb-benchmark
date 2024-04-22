@@ -31,7 +31,14 @@ def get_server(base_path: Path, port: int):
 class WebNWBBenchmarks:
     
     def __init__(self, html_path: Path):
-        """Initialize the instance properties"""
+        """
+        Initialize the instance properties.
+
+        Parameters
+        ----------
+        html_path : pathlib.Path
+            Path to the HTML file that contains the benchmark tests. For this repository, you'd point to the built version of the `index.html` file in the root directory (i.e. `pathlib.Path("dist") / "index.html"` ).
+        """
         self.html_path = html_path
         self.httpd = None
         self.server_thread = None
