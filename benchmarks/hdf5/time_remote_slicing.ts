@@ -1,7 +1,7 @@
 import { Benchmark } from '../benchmark'
-import { 
-    getRemoteH5File, 
-    RemoteH5File, 
+import {
+    getRemoteH5File,
+    RemoteH5File,
 } from '@fi-sci/remote-h5-file'
 import { cacheBust } from '../utils'
 

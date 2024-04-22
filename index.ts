@@ -6,13 +6,13 @@ export const runBenchmark = async (name) => {
     const instance = benchmarks[name]
 
     const allResults: BenchmarkResults[] = []
-    
+
     for (let params of instance.params) {
 
         const results: number[] = []
 
         // for (let _ in Array.from({ length: instance.rounds })) {
-        
+
             for (let _ in Array.from({ length: instance.repeat ?? 1 })) {
                 await instance.setup(params)
                 const start = performance.now()
@@ -29,7 +29,7 @@ export const runBenchmark = async (name) => {
     return allResults
 };
 
-  
+
 export const runAllBenchmarks = async () => {
     const results = {}
     for (const name in benchmarks) results[name] = await runBenchmark(name)
